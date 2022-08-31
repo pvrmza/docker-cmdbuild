@@ -1,0 +1,37 @@
+version: "2.4"
+volumes:
+    cmdbuild-db:
+    cmdbuild-tomcat:
+
+services:
+    cmdbuild_db:
+        image: postgis/postgis:12-3.2-alpine
+        container_name: cmdbuild_db
+        volumes:
+            - cmdbuild-db:/var/lib/postgresql
+        ports:
+            - 5432:5432
+        env_file:
+            - .env_cmdbuild_db
+        restart: always
+        mem_limit: 1000m
+        mem_reservation: 300m
+
+    cmdbuild_app:
+        image: cmdbuild:r2u-2.2
+        container_name: cmdbuild_app
+        restart: always
+        links:
+           - cmdbuild_db
+        depends_on:
+           - cmdbuild_db
+        ports:
+            - 8090:8080
+        volumes:
+            - cmdbuild-tomcat:/usr/local/tomcat
+            - "./initdb:/opt/initdb"
+        env_file:
+            - .env_cmdbuild_app
+
+        mem_limit: 4000m
+        mem_reservation: 2000m
