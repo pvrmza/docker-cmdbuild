@@ -15,7 +15,7 @@ Clone repo
 ```bash
 git clone https://github.com/pvrmza/docker-cmdbuild.git
 ```  
-cd to folder and copy env example
+cd to folder and copy env example (very very insecure)
 ```bash  
 cd docker-cmdbuild
 cp env_cmdbuild_app_example .env_cmdbuild_app
