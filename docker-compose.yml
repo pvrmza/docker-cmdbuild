@@ -18,7 +18,7 @@ services:
         mem_reservation: 300m
 
     cmdbuild_app:
-        image: cmdbuild:r2u-2.2
+        image: pvrmza/cmdbuild:r2u-2.2-3.3.2
         container_name: cmdbuild_app
         restart: always
         links:
