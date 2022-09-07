@@ -7,6 +7,7 @@ POSTGRES_PORT=5432
 POSTGRES_HOST=cmdbuild_db
 POSTGRES_DB=cmdbuild_r2u2
 
+CMDBUILD_INITDB=true
 CMDBUILD_DUMP=ready2use_demo.dump.xz
 
 JAVA_OPTS=-Xmx4000m -Xms2000m

@@ -16,15 +16,16 @@ while ! timeout 1 bash -c "echo > /dev/tcp/$POSTGRES_HOST/$POSTGRES_PORT"; do
   >&2 echo "Postgres is unavailable - sleeping" 
   sleep 5
 done
-
-echo "Init DB"
-{ # try
-  
-    $CATALINA_HOME/webapps/cmdbuild/cmdbuild.sh dbconfig create /opt/initdb/$CMDBUILD_DUMP -configfile $CATALINA_HOME/conf/cmdbuild/database.conf
-   
-} || { 
-    echo "DB was initiliazed. Use dbconfig recreate or dbconfig drop"
-}
+if [ "$CMDBUILD_INITDB" = true ] ; then
+    echo "Init DB"
+    { # try
+      
+        $CATALINA_HOME/webapps/cmdbuild/cmdbuild.sh dbconfig create /opt/initdb/$CMDBUILD_DUMP -configfile $CATALINA_HOME/conf/cmdbuild/database.conf
+       
+    } || { 
+        echo "DB was initiliazed. Use dbconfig recreate or dbconfig drop"
+    }
+fi
 
 #echo "Change user to tomcat"
 #su tomcat
